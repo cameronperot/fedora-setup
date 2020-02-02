@@ -93,7 +93,7 @@ dnf install -y \
 	libgnome-keyring
 
 # Enable tlp if laptop arg
-if [ $1 == 'laptop' ]
+if [ "$1" == "laptop" ]
 then
 	dnf install -y install tlp tlp-rdw powertop
 fi
@@ -113,12 +113,14 @@ cp $setup_dir/etc/resolv.conf /etc/resolv.conf
 chmod 644 /etc/resolv.conf
 
 # Disable IPv6
-echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.d/99-sysctl.conf
-echo "net.ipv6.conf.default.disable_ipv6 = 1" >> /etc/sysctl.d/99-sysctl.conf
-echo "net.ipv6.conf.lo.disable_ipv6 = 1" >> /etc/sysctl.d/99-sysctl.conf
+cat <<EOT >> /etc/sysctl/sysctl.d/99-sysctl
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+net.ipv6.conf.lo.disable_ipv6 = 1
+EOT
 
 # Enable iptables if arg
-if [ $2 == 'iptables' ]
+if [ "$2" == "iptables" ]
 then
 	cp $setup_dir/etc/sysconfig/ip*tables /etc/sysconfig/
 	chmod 600 /etc/sysconfig/ip*tables
