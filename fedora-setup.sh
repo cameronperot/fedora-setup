@@ -92,6 +92,9 @@ dnf install -y \
 	ImageMagick \
 	soundconverter \
 	hdf5-devel \
+	qt5ct \
+	lightdm-settings \
+    adobe-source-code-pro-fonts \
 	libgnome-keyring
 
 # Enable tlp if laptop arg
