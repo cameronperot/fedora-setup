@@ -11,6 +11,11 @@ cd fedora-setup
 
 ## Recommended
 
+### Restore dotfiles
+```bash
+git clone https://github.com/cameronperot/dotfiles
+```
+
 ### Copy Backed Up Home Files
 ```bash
 cp -a ../backup/home/* ~/
@@ -61,27 +66,17 @@ sudo systemctl enable i3lock@user.target
 * Install add-ons: privacy badger, ublock origin, https everywhere
 * Change privacy settings
 
-### Install Sublime
-https://www.sublimetext.com/
-```bash
-sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
-sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
-sudo dnf install sublime-text
-```
-
-### Install Atom
-https://atom.io/
-```bash
-cd ~
-git clone https://github.com/cameronperot/.atom.git
-cd .atom
-./atom-setup.sh
-```
 
 ### Set up lm_sensors
 https://github.com/lm-sensors/lm-sensors
 ```bash
 sudo sensors-detect
+```
+
+#### Set up temp monitoring for status bar
+Place the `cpu_temp1_input` script in `/usr/local/bin` and edit crontab to include:
+```bash
+@reboot bash /usr/local/bin/cpu_temp1_input
 ```
 
 ### Set Number of Old Kernels to Keep
@@ -125,4 +120,21 @@ git clone https://github.com/rofl0r/proxychains-ng.git
 ./configure
 make
 sudo make install
+```
+
+### Install Sublime
+https://www.sublimetext.com/
+```bash
+sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
+sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
+sudo dnf install sublime-text
+```
+
+### Install Atom
+https://atom.io/
+```bash
+cd ~
+git clone https://github.com/cameronperot/.atom.git
+cd .atom
+./atom-setup.sh
 ```
