@@ -4,8 +4,8 @@ set -eu -o pipefail
 # Ensure script is run as root
 if [ "$USER" != "root" ]
 then
-	echo "You must run this script as root!"
-	exit 1
+    echo "You must run this script as root!"
+    exit 1
 fi
 
 # Username, SSH keys, and location of user's home directory
@@ -36,71 +36,118 @@ chmod 644 /etc/ssh/*_config
 
 # Remove/install packages
 dnf erase -y \
-	galculator \
-	pragha \
-	parole \
-	enumerator \
-	abiword \
-	claws-mail \
-	geany xfburn \
-	xscreensaver-base \
-	gnumeric \
-	orage \
-	asunder
+    galculator \
+    pragha \
+    parole \
+    enumerator \
+    abiword \
+    claws-mail \
+    geany xfburn \
+    xscreensaver-base \
+    gnumeric \
+    orage \
+    asunder
 dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 dnf upgrade -y
 dnf install -y \
-	iptables-services \
-	rsync \
-	htop \
-	tmux \
-	ncdu \
-	git \
-	vim \
-	nload \
-	wireshark \
-	fakeroot \
-	make \
-	automake \
-	gcc \
-	gcc-c++ \
-	libtool \
-	curl \
-	ca-certificates \
-	VirtualBox \
-	kernel-devel \
-	light-locker \
-	vlc \
-	lm_sensors \
-	gimp \
-	qalculate-gtk \
-	redshift-gtk \
-	pidgin \
-	pidgin-otr \
-	hexchat \
-	texlive-scheme-basic \
-	texlive-collection-latexextra \
-	dvipng \
-	pandoc \
-	chromium \
-	libreoffice \
-	transmission-gtk \
-	p7zip \
-	p7zip-plugins \
-	gvfs-mtp \
-	perl-Image-ExifTool \
-	ImageMagick \
-	soundconverter \
-	hdf5-devel \
-	qt5ct \
-	lightdm-settings \
     adobe-source-code-pro-fonts \
-	libgnome-keyring
+    automake \
+    buildah \
+    ca-certificates \
+    chkrootkit \
+    chromium \
+    curl \
+    dvipng \
+    exfat-utils \
+    fakeroot \
+    feh \
+    ffmpeg \
+    ffmpeg-devel \
+    fuse-exfat \
+    fuse-sshfs \
+    gcc \
+    gcc-c++ \
+    gimp \
+    git \
+    gnome-clocks \
+    gvfs-mtp \
+    hdf5-devel \
+    hexchat \
+    hstr \
+    htop \
+    i3 \
+    i3lock \
+    i3status \
+    iftop \
+    ImageMagick \
+    iotop \
+    iptables-services \
+    kernel-devel \
+    kitty \
+    libgnome-keyring \
+    libreoffice \
+    libtool \
+    light-locker \
+    lightdm-settings \
+    lm_sensors \
+    lshw \
+    make \
+    ncdu \
+    nextcloud-client \
+    nload \
+    okular \
+    p7zip \
+    p7zip-plugins \
+    pandoc \
+    perl-Image-ExifTool \
+    podman \
+    podman-compose \
+    powerline-fonts \
+    powertop \
+    pulseaudio-libs-devel \
+    qt5-qtconfiguration \
+    qt5-qttools \
+    qt5-qtx11extras-devel \
+    qt5ct \
+    ranger \
+    readline-devel \
+    redshift-gtk \
+    rkhunter \
+    rsync \
+    ShellCheck \
+    simplescreenrecorder \
+    soundconverter \
+    srm \
+    texlive-bbm \
+    texlive-bbm-macros \
+    texlive-collection-latexextra \
+    texlive-fontawesome \
+    texlive-ly1 \
+    texlive-scheme-medium \
+    texlive-semantic \
+    texlive-semantic-markup \
+    texlive-sourcecodepro \
+    texlive-sourcesanspro \
+    texlive-tcolorbox \
+    tmux \
+    units \
+    unrar \
+    vim \
+    VirtualBox \
+    vlc \
+    wireshark \
+    xautolock \
+    xbacklight \
+    xclip \
+    xfdesktop \
+    zsh
+
+
 
 # Enable tlp if laptop arg
 if [ "$1" == "laptop" ]
 then
-	dnf install -y install tlp tlp-rdw powertop
+    dnf install -y install tlp tlp-rdw tlp-release powertop
 fi
 
 # Copy over OpenVPN files
@@ -127,12 +174,12 @@ EOT
 # Enable iptables if arg
 if [ "$2" == "iptables" ]
 then
-	cp $setup_dir/etc/sysconfig/ip*tables /etc/sysconfig/
-	chmod 600 /etc/sysconfig/ip*tables
-	systemctl disable firewalld
-	systemctl enable iptables
-	systemctl enable ip6tables
-	systemctl stop firewalld
-	systemctl start iptables
-	systemctl start ip6tables
+    cp $setup_dir/etc/sysconfig/ip*tables /etc/sysconfig/
+    chmod 600 /etc/sysconfig/ip*tables
+    systemctl disable firewalld
+    systemctl enable iptables
+    systemctl enable ip6tables
+    systemctl stop firewalld
+    systemctl start iptables
+    systemctl start ip6tables
 fi
