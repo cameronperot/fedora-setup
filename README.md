@@ -21,38 +21,18 @@ git clone https://github.com/cameronperot/dotfiles
 cp -a ../backup/home/* ~/
 ```
 
-### Install intel-undervolt from Source
+### Install intel-undervolt from Source (needs configuring)
 https://github.com/kitsunyan/intel-undervolt
+https://wiki.archlinux.org/title/Undervolting_CPU
 ```bash
 sudo bash shell-scripts/setup-scripts/intel-undervolt.sh
-```
-
-### Install KeePassX from Source
-https://www.keepassx.org/
-```bash
-sudo bash shell-scripts/setup-scripts/keepassx-fedora.sh
-```
-
-### Install Firejail from Source
-https://firejail.wordpress.com/
-```bash
-sudo bash shell-scripts/setup-scripts/firejail.sh
-```
-
-### Install Source Code Pro font
-```bash
-bash shell-scripts/miscellaneous/source-code-pro-font.sh
 ```
 
 ### Install Veracrypt
 https://www.veracrypt.fr/en/Downloads.html
 
-### Configure i3 to Lock on Suspend
-```bash
-cp -a backup/etc/systemd/system/i3lock@.service /etc/systemd/system/i3lock@.service
-sudo systemctl daemon-reload
-sudo systemctl enable i3lock@user.target
-```
+### Configure xfce-notifyd
+https://forum.xfce.org/viewtopic.php?id=14228
 
 ### Configure Browsers
 
@@ -65,7 +45,6 @@ sudo systemctl enable i3lock@user.target
 #### Chromium
 * Install add-ons: privacy badger, ublock origin, https everywhere
 * Change privacy settings
-
 
 ### Set up lm_sensors
 https://github.com/lm-sensors/lm-sensors
@@ -97,44 +76,5 @@ sudo bash Mathematica_11.0.1_LINUX.sh
 ```
 Set Mathematica screen resolution `SetOptions[$FrontEnd, FontProperties -> {"ScreenResolution" -> 180}]`
 
-### Install youtube-dl
-https://ytdl-org.github.io/youtube-dl/
-```bash
-sudo curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
-sudo chmod a+rx /usr/local/bin/youtube-dl
-```
-
-### Install translate-shell
-https://github.com/soimort/translate-shell
-```bash
-git clone https://github.com/soimort/translate-shell.git
-cd translate-shell/
-make
-sudo make install
-```
-
-### Install proxychains-ng
-https://github.com/rofl0r/proxychains-ng
-```bash
-git clone https://github.com/rofl0r/proxychains-ng.git
-./configure
-make
-sudo make install
-```
-
-### Install Sublime
-https://www.sublimetext.com/
-```bash
-sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
-sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
-sudo dnf install sublime-text
-```
-
-### Install Atom
-https://atom.io/
-```bash
-cd ~
-git clone https://github.com/cameronperot/.atom.git
-cd .atom
-./atom-setup.sh
-```
+#### Mathematica Fix
+Requires moving/renaming of `libfreetype.so`, `libfreetype.so.6` and `libz.so` as stated in https://mathematica.stackexchange.com/questions/189306/cant-launch-mathematica-11-on-fedora-29
