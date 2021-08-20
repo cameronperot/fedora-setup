@@ -61,12 +61,6 @@ Place the `cpu_temp1_input` script in `/usr/local/bin` and edit crontab to inclu
 ### Set Number of Old Kernels to Keep
 Change `installonly_limit=n` in `/etc/dnf/dnf.conf` to keep `n` old kernels.
 
-### Import GPG Keys
-```bash
-gpg --import <PUBLIC_KEY>
-gpg --allow-secret-key-import --import <PRIVATE_KEY>
-```
-
 ## Optional
 
 ### Install Mathematica
