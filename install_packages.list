@@ -1,4 +1,5 @@
 adobe-source-code-pro-fonts
+autojump
 automake
 buildah
 ca-certificates
@@ -53,7 +54,6 @@ podman
 podman-compose
 powerline-fonts
 powertop
-pulseaudio-libs-devel
 qt5-qtconfiguration
 qt5-qttools
 qt5-qtx11extras-devel
