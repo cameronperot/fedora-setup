@@ -1,10 +1,11 @@
 adobe-source-code-pro-fonts
-autojump
+autojump-zsh
 automake
 buildah
 ca-certificates
 chkrootkit
 chromium
+clang-devel
 curl
 dvipng
 exfatprogs
@@ -34,6 +35,7 @@ kernel-devel
 kitty
 libgnome-keyring
 libreoffice
+libselinux-devel
 libtool
 light
 light-locker
