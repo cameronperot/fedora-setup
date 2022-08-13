@@ -6,20 +6,13 @@ This repository contains useful scripts and snippets I use when configuring Fedo
 cd ~
 git clone https://github.com/cameronperot/fedora-setup.git
 cd fedora-setup
-./fedora-setup.sh
+```
+Edit the args in the `if __name__ == "__main__":` section and run
+```bash
+./fedora_setup.py
 ```
 
 ## Recommended
-
-### Restore dotfiles
-```bash
-git clone https://github.com/cameronperot/dotfiles
-```
-
-### Copy Backed Up Home Files
-```bash
-cp -a ../backup/home/* ~/
-```
 
 ### Install intel-undervolt from Source (needs configuring)
 https://github.com/kitsunyan/intel-undervolt
