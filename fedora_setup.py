@@ -9,35 +9,29 @@ from subprocess import run
 class FedoraSetup:
     def __init__(
         self,
-        working_dir,
-        rsync_dir=None,
+        rsync_dir,
+        backup_dir=None,
         user="user",
         install_tlp=False,
-        install_tlp_thinkpad=False,
         julia_version=None,
     ):
-        # Set location of rsync directory
-        if rsync_dir is None:
-            self.rsync_dir = self.working_dir / "home" / "rsync"
-        else:
-            self.rsync_dir = Path(rsync_dir)
-
         # Set attributes
         self.user = user
+        self.rsync_dir = Path(rsync_dir)
         self.home_dir = Path(f"/home/{user}")
-        self.working_dir = Path(working_dir)
-        self.backup_dir = self.rsync_dir / "nix/fedora/backup"
-        self.home_dir_backup = self.working_dir / "home"
+        self.script_dir = Path(__file__)
         self.install_tlp = install_tlp
-        self.install_tlp_thinkpad = install_tlp_thinkpad
         self.julia_version = julia_version
+
+        # Set backup directory (contains home and etc subdirectories)
+        if backup_dir is None:
+            backup_dir = self.rsync_dir / "nix/fedora/backup"
+        self.backup_dir = backup_dir
 
         # Ensure directories exist
         assert self.home_dir.exists()
-        assert self.backup_dir.exists()
         assert self.rsync_dir.exists()
-        assert self.working_dir.exists()
-        assert self.home_dir_backup.exists()
+        assert self.backup_dir.exists()
         assert self.julia_version is not None
 
         # Get the fedora version (used for adding repos)
@@ -54,9 +48,9 @@ class FedoraSetup:
         self.log.info("----------------------------------------")
 
         # Get packages to erase/install from list files
-        with open("erase_packages.list", "r") as f:
+        with open(self.script_dir / "erase_packages.list", "r") as f:
             erase_packages = [x.strip() for x in f.readlines() if x.strip()]
-        with open("install_packages.list", "r") as f:
+        with open(self.script_dir / "install_packages.list", "r") as f:
             install_packages = [x.strip() for x in f.readlines() if x.strip()]
 
         rpm_fusion_urls = [
@@ -66,29 +60,21 @@ class FedoraSetup:
 
         # Erase packages
         self.log.info("Erasing packages")
-        out = run(["sudo", "dnf", "erase", "-y", *erase_packages], check=True)
+        run(["sudo", "dnf", "erase", "-y", *erase_packages], check=True)
         # Install rpm fusion
         self.log.info("Installing RPM Fusion")
-        out = run(["sudo", "dnf", "install", "-y", *rpm_fusion_urls], check=True)
+        run(["sudo", "dnf", "install", "-y", *rpm_fusion_urls], check=True)
         # Upgrade packages
         self.log.info("Upgrading packages")
-        out = run(["sudo", "dnf", "upgrade", "-y"], check=True)
+        run(["sudo", "dnf", "upgrade", "-y"], check=True)
         # Install packages
         self.log.info("Installing packages")
-        out = run(["sudo", "dnf", "install", "-y", *install_packages], check=True)
+        run(["sudo", "dnf", "install", "-y", *install_packages], check=True)
 
         # Install tlp
         if self.install_tlp:
             run(
                 ["sudo", "dnf", "install", "-y", "tlp", "tlp-rdw", "powertop"],
-                check=True,
-            )
-        # Install tlp extras for thinkpads
-        if self.install_tlp_thinkpad:
-            tlp_thinkpad_extras_url = f"https://repo.linrunner.de/fedora/tlp/repos/releases/tlp-release.fc{self.fedora_version}.noarch.rpm"
-            run(["sudo", "dnf", "install", "-y", tlp_thinkpad_extras_url], check=True)
-            run(
-                ["sudo", "dnf", "install", "-y", "kernel-devel", "akmod-acpi_call"],
                 check=True,
             )
 
@@ -121,7 +107,7 @@ class FedoraSetup:
         # Remove small primes from SSH moduli
         self.log.info("Removing small primes from SSH moduli")
         moduli_fix = """
-            awk '$5 > 2000' /etc/ssh/moduli > "${HOME}/moduli"
+            awk '$5 > 3000' /etc/ssh/moduli > "${HOME}/moduli"
             wc -l "${HOME}/moduli"
             sudo mv -f "${HOME}/moduli" /etc/ssh/moduli
             sudo chown root:root /etc/ssh/moduli
@@ -141,7 +127,7 @@ class FedoraSetup:
                 "rsync",
                 "-a",
                 "--progress",
-                f"{self.home_dir_backup}/",
+                f"{self.backup_dir / 'home'}/",
                 f"{self.home_dir}/",
             ],
             check=True,
@@ -175,13 +161,17 @@ class FedoraSetup:
                 "keepassxc.sh",
             ],
             self.rsync_dir
-            / "programming/environment/julia-environment": ["julia-setup.sh"],
-            self.rsync_dir
             / "programming/environment/python-environment": [
                 "miniconda-setup.sh",
                 "jupyter-setup.sh",
             ],
         }
+
+        # Install Julia if specified
+        if self.julia_version is not None:
+            dirs_scripts[
+                self.rsync_dir / "programming/environment/julia-environment"
+            ] = ["julia-setup.sh"]
 
         # Run install scripts
         for dir, scripts in dirs_scripts.items():
@@ -259,11 +249,10 @@ class FedoraSetup:
 
 if __name__ == "__main__":
     fs = FedoraSetup(
-        "/backup",
         rsync_dir=Path("/backup/rsync"),
+        user="user",
         install_tlp=True,
-        install_tlp_thinkpad=True,
-        julia_version="1.6.2",
+        julia_version="1.7.3",
     )
     fs.configure_packages()
     fs.configure_etc()
