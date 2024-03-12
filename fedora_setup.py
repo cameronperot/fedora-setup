@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import logging
-
 from pathlib import Path
 from subprocess import run
 
@@ -154,11 +153,10 @@ class FedoraSetup:
         dirs_scripts = {
             self.rsync_dir
             / "nix/scripts/setup-scripts": [
-                "caps2esc.sh",
-                "firejail.sh",
                 "intel-undervolt.sh",
                 "juliamono.sh",
                 "keepassxc.sh",
+                "keyd.sh",
             ],
             self.rsync_dir
             / "programming/environment/python-environment": [
@@ -169,9 +167,9 @@ class FedoraSetup:
 
         # Install Julia if specified
         if self.julia_version is not None:
-            dirs_scripts[
-                self.rsync_dir / "programming/environment/julia-environment"
-            ] = ["julia-setup.sh"]
+            dirs_scripts[self.rsync_dir / "programming/environment/julia-environment"] = [
+                "julia-setup.sh"
+            ]
 
         # Run install scripts
         for dir, scripts in dirs_scripts.items():

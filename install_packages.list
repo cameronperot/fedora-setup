@@ -1,3 +1,6 @@
+ImageMagick
+ShellCheck
+VirtualBox
 adobe-source-code-pro-fonts
 autojump-zsh
 automake
@@ -13,6 +16,7 @@ fakeroot
 feh
 ffmpeg
 ffmpeg-devel
+firejail
 fuse-sshfs
 gcc
 gcc-c++
@@ -28,10 +32,10 @@ i3
 i3lock
 i3status
 iftop
-ImageMagick
 iotop
 iptables-services
 kernel-devel
+keyd
 kitty
 libgnome-keyring
 libreoffice
@@ -66,7 +70,6 @@ redshift-gtk
 restic
 rkhunter
 rsync
-ShellCheck
 simplescreenrecorder
 soundconverter
 srm
@@ -75,7 +78,6 @@ tmux
 units
 unrar
 vim
-VirtualBox
 vlc
 wireshark
 xautolock
