@@ -7,9 +7,8 @@ cd ~
 git clone https://github.com/cameronperot/fedora-setup.git
 cd fedora-setup
 ```
-Edit the args in the `if __name__ == "__main__":` section and run
 ```bash
-./fedora_setup.py
+./fedora_setup.py --help
 ```
 
 ## Recommended
@@ -18,7 +17,7 @@ Edit the args in the `if __name__ == "__main__":` section and run
 https://github.com/kitsunyan/intel-undervolt
 https://wiki.archlinux.org/title/Undervolting_CPU
 ```bash
-sudo bash shell-scripts/setup-scripts/intel-undervolt.sh
+sudo bash shell-scripts/scripts/install_intel_undervolt.sh
 ```
 
 ### Install Veracrypt
@@ -45,23 +44,5 @@ https://github.com/lm-sensors/lm-sensors
 sudo sensors-detect
 ```
 
-#### Set up temp monitoring for status bar
-Place the `cpu_temp1_input` script in `/usr/local/bin` and edit crontab to include:
-```bash
-@reboot bash /usr/local/bin/cpu_temp1_input
-```
-
 ### Set Number of Old Kernels to Keep
 Change `installonly_limit=n` in `/etc/dnf/dnf.conf` to keep `n` old kernels.
-
-## Optional
-
-### Install Mathematica
-https://user.wolfram.com/portal/requestSystemTransfer.html
-```bash
-sudo bash Mathematica_11.0.1_LINUX.sh
-```
-Set Mathematica screen resolution `SetOptions[$FrontEnd, FontProperties -> {"ScreenResolution" -> 180}]`
-
-#### Mathematica Fix
-Requires moving/renaming of `libfreetype.so`, `libfreetype.so.6` and `libz.so` as stated in https://mathematica.stackexchange.com/questions/189306/cant-launch-mathematica-11-on-fedora-29
