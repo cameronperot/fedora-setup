@@ -118,11 +118,12 @@ class FedoraSetup:
         self.log.debug("Command succeeded")
         return True
 
-    def configure_packages(self, install_tlp: bool = False) -> None:
+    def configure_packages(self, install_tlp: bool = False, install_ppd: bool = False) -> None:
         """
         Configure the packages using `dnf`.
 
         :param install_tlp: Flag to install TLP packages for advanced power management.
+        :param install_ppd: Flag to install PPD packages for advanced power management.
         """
         self.log.info("Configuring packages")
 
@@ -143,6 +144,8 @@ class FedoraSetup:
         # Execute package operations
         if install_tlp:
             install_packages += ["tlp", "tlp-rdw", "powertop"]
+        if install_ppd:
+            install_packages += ["power-profiles-daemon"]
         commands = []
         if remove_packages:
             commands.append(["sudo", "dnf", "remove", "-y", *remove_packages])
@@ -156,6 +159,10 @@ class FedoraSetup:
         for command in commands:
             self._run_command(command)
 
+        if install_ppd:
+            command = ["sudo", "systemctl", "enable", "--now", "power-profiles-daemon.service"]
+            self._run_command(command)
+
         self.log.info("Packages configured successfully")
 
     def configure_etc(self) -> None:
@@ -165,7 +172,10 @@ class FedoraSetup:
         self.log.info("Configuring /etc")
 
         # Copy over config files
-        config_files = (self.CONFIG_FILES["ssh_config"], self.CONFIG_FILES["sshd_config"])
+        config_files = (
+            self.CONFIG_FILES["ssh_config"],
+            self.CONFIG_FILES["sshd_config"],
+        )
         for config_file in config_files:
             source_path = self.repo_dir / config_file[1:]
             if not source_path.exists():
@@ -179,7 +189,11 @@ class FedoraSetup:
         # Remove small primes from SSH moduli
         self.log.info("Removing small primes from SSH moduli")
         self._run_command(
-            ["sudo", "bash", str(self.scripts_dir / "remove_small_ssh_moduli_primes.sh")]
+            [
+                "sudo",
+                "bash",
+                str(self.scripts_dir / "remove_small_ssh_moduli_primes.sh"),
+            ]
         )
 
     def configure_home(self) -> None:
@@ -270,7 +284,8 @@ def parse_args() -> argparse.Namespace:
     :return: Parsed arguments.
     """
     parser = argparse.ArgumentParser(
-        description="Fedora setup script", formatter_class=argparse.ArgumentDefaultsHelpFormatter
+        description="Fedora setup script",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
 
     # Basic configuration options
@@ -290,6 +305,9 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--install_tlp", action="store_true", help="Install TLP for power management"
+    )
+    parser.add_argument(
+        "--install_ppd", action="store_true", help="Install PPD for power management"
     )
     parser.add_argument(
         "--configure_etc", action="store_true", help="Run /etc configuration step"
@@ -316,7 +334,7 @@ if __name__ == "__main__":
         fs = FedoraSetup(backup_dir=args.backup_dir, debug=args.debug)
 
         if args.all or args.configure_packages:
-            fs.configure_packages(install_tlp=args.install_tlp)
+            fs.configure_packages(install_tlp=args.install_tlp, install_ppd=args.install_ppd)
         if args.all or args.configure_etc:
             fs.configure_etc()
         if args.all or args.configure_home:

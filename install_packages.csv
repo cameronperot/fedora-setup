@@ -18,6 +18,7 @@ exfatprogs
 fakeroot
 fd-find
 firejail
+fuse-libs
 fuse-sshfs
 fuzzel
 fzf
