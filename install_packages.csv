@@ -2,6 +2,7 @@ ImageMagick
 NetworkManager-tui
 ShellCheck
 VirtualBox
+adwaita-icon-theme
 automake
 bat
 blueman
@@ -20,7 +21,6 @@ fd-find
 firejail
 fuse-libs
 fuse-sshfs
-fuzzel
 fzf
 gammastep
 gammastep-indicator
@@ -31,6 +31,7 @@ git
 gnome-clocks
 gnumeric
 golang
+greybird-dark-theme
 grim
 gvfs-mtp
 hdf5-devel
@@ -79,6 +80,7 @@ readline-devel
 restic
 ripgrep
 rkhunter
+rofi-wayland
 rsync
 shellcheck
 shfmt
@@ -103,6 +105,8 @@ wev
 wireguard-tools
 wireshark
 wl-clipboard
+xdg-desktop-portal
+xdg-desktop-portal-wlr
 yt-dlp
 zoxide
 zsh
