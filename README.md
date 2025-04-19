@@ -46,3 +46,15 @@ sudo sensors-detect
 
 ### Set Number of Old Kernels to Keep
 Change `installonly_limit=n` in `/etc/dnf/dnf.conf` to keep `n` old kernels.
+
+### Set the background for SDDM
+Add the following to `/usr/share/sddm/themes/03-sway-fedora/theme.conf`.
+```
+[General]
+background=/usr/share/backgrounds/background.png
+```
+
+### Additional Manual Configuration
+- VPN
+- NextCloud
+- Syncthing
