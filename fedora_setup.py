@@ -23,7 +23,8 @@ class FedoraSetup:
     }
 
     # Installation scripts
-    INSTALL_SCRIPTS = [
+    SCRIPTS = [
+        "configure_kanshi.sh",
         "install_rust.sh",
         "install_i3status_rust.sh",
         "install_jetbrainsmono_nerd_font.sh",
@@ -236,7 +237,7 @@ class FedoraSetup:
         self.log.info("Installing packages from scripts")
 
         # Run the install scripts
-        for script_name in self.INSTALL_SCRIPTS:
+        for script_name in self.SCRIPTS:
             script_path = self.scripts_dir / script_name
             if not script_path.exists():
                 self.log.warning(f"Script {script_path} not found, skipping")
