@@ -17,6 +17,7 @@ curl
 dvipng
 exfatprogs
 fakeroot
+fastfetch
 fd-find
 firejail
 fuse-libs
@@ -35,7 +36,6 @@ greybird-dark-theme
 grim
 gvfs-mtp
 hdf5-devel
-hexchat
 hstr
 htop
 iftop
@@ -90,16 +90,15 @@ snapper
 soundconverter
 srm
 swappy
+sway
 swaybg
 swayidle
 swaylock
 syncthing
-texlive-scheme-full
 tigervnc
 tmux
 units
 unrar
-vim
 vlc
 wdisplays
 wev
