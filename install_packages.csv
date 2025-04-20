@@ -30,6 +30,8 @@ gcc-c++
 gimp
 git
 gnome-clocks
+gnome-keyring
+gnome-keyring-pam
 gnumeric
 golang
 greybird-dark-theme
@@ -83,6 +85,7 @@ ripgrep
 rkhunter
 rofi-wayland
 rsync
+seahorse
 shellcheck
 shfmt
 slurp
@@ -107,6 +110,7 @@ wireshark
 wl-clipboard
 xdg-desktop-portal
 xdg-desktop-portal-wlr
+xfce-polkit
 yt-dlp
 zoxide
 zsh
