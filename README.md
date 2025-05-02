@@ -55,6 +55,23 @@ background=/usr/share/backgrounds/background.png
 ```
 
 ### Additional Manual Configuration
+- Cron jobs
 - VPN
 - NextCloud
 - Syncthing
+
+## Framework Laptop 13 AMD WiFi Fixes
+See [here](https://wiki.archlinux.org/title/Network_configuration/Wireless#mt7921) and [here](https://community.frame.work/t/responded-poor-wi-fi-performance-with-amd-rz616/42901/20).
+
+### WiFi Backend
+Add the following to `/etc/NetworkManager/conf.d/wifi_backend.conf`
+```
+[device]
+wifi.backend=iwd
+```
+
+# WiFi Power Saving
+Add the following to `/etc/modprobe.d/mt7921e.conf`
+```
+options mt7921e disable_aspm=1
+```
