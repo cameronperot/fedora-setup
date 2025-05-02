@@ -4,6 +4,7 @@ ShellCheck
 VirtualBox
 adwaita-icon-theme
 automake
+autorestic
 bat
 blueman
 btop
@@ -20,6 +21,7 @@ fakeroot
 fastfetch
 fd-find
 firejail
+firewall-config
 fuse-libs
 fuse-sshfs
 fzf
@@ -47,6 +49,7 @@ kanshi
 kernel-devel
 kitty
 libgnome-keyring
+libinput-utils
 libreoffice
 libselinux-devel
 libtool
@@ -80,8 +83,10 @@ qt5-qtx11extras-devel
 qt5ct
 ranger
 readline-devel
+remote-viewer
 restic
 ripgrep
+ristretto
 rkhunter
 rofi-wayland
 rsync
@@ -103,6 +108,7 @@ tmux
 units
 unrar
 vlc
+wavemon
 wdisplays
 wev
 wireguard-tools
