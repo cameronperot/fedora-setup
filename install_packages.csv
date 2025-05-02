@@ -16,6 +16,7 @@ clang-devel
 compat-lua-devel
 curl
 dvipng
+evince
 exfatprogs
 fakeroot
 fastfetch
