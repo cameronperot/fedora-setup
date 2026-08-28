@@ -2,6 +2,7 @@ ImageMagick
 NetworkManager-tui
 ShellCheck
 VirtualBox
+adw-gtk3-theme
 adwaita-icon-theme
 automake
 autorestic
@@ -23,6 +24,9 @@ fastfetch
 fd-find
 firejail
 firewall-config
+flatpak
+flatseal
+fprintd
 fuse-libs
 fuse-sshfs
 fzf
@@ -30,6 +34,7 @@ gammastep
 gammastep-indicator
 gcc
 gcc-c++
+geeqie
 gimp
 git
 gnome-clocks
@@ -49,6 +54,7 @@ jpegoptim
 kanshi
 kernel-devel
 kitty
+krun
 libgnome-keyring
 libinput-utils
 libreoffice
@@ -71,6 +77,7 @@ okular
 openssl
 p7zip
 p7zip-plugins
+pam_fprintd
 pandoc
 perl-Image-ExifTool
 podman
@@ -78,6 +85,7 @@ podman-compose
 powerline-fonts
 powertop
 python3-devel
+python3-dnf-plugin-snapper
 qt5-qtconfiguration
 qt5-qttools
 qt5-qtx11extras-devel
@@ -98,7 +106,6 @@ shfmt
 slurp
 snapper
 soundconverter
-srm
 swappy
 sway
 swaybg
