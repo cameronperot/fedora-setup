@@ -1,77 +1,139 @@
 # Fedora Setup
-This repository contains useful scripts and snippets I use when configuring Fedora on my workstations.
+
+Useful scripts and snippets for configuring Fedora.
 
 ## Usage
+
 ```bash
 cd ~
 git clone https://github.com/cameronperot/fedora-setup.git
 cd fedora-setup
-```
-```bash
 ./fedora_setup.py --help
 ```
 
-## Recommended
+## Recommended Setup
 
-### Install intel-undervolt from Source (needs configuring)
-https://github.com/kitsunyan/intel-undervolt
-https://wiki.archlinux.org/title/Undervolting_CPU
+### intel-undervolt (needs configuring)
+
+Install from [source](https://github.com/kitsunyan/intel-undervolt); see the [Arch Wiki page on undervolting](https://wiki.archlinux.org/title/Undervolting_CPU) for guidance.
+
 ```bash
 sudo bash shell-scripts/scripts/install_intel_undervolt.sh
 ```
 
-### Install Veracrypt
-https://www.veracrypt.fr/en/Downloads.html
+### VeraCrypt
 
-### Configure xfce-notifyd
-https://forum.xfce.org/viewtopic.php?id=14228
+Download and install from [veracrypt.fr](https://www.veracrypt.fr/en/Downloads.html).
 
-### Configure Browsers
+### Browsers
 
 #### Firefox
-* Log into firefox sync
-* Set `browser.sessionstore.interval` to `3600000`
-* Go through privacytools.io [about:config tweaks](https://www.privacytools.io/browsers/#about_config)
-* Change privacy settings
+
+- Log into Firefox Sync
+- Set `browser.sessionstore.interval` to `3600000`
+- Go through the [privacytools.io `about:config` tweaks](https://www.privacytools.io/browsers/#about_config)
+- Change privacy settings
 
 #### Chromium
-* Install add-ons: privacy badger, ublock origin, https everywhere
-* Change privacy settings
 
-### Set up lm_sensors
-https://github.com/lm-sensors/lm-sensors
+- Install add-ons: Privacy Badger, uBlock Origin, HTTPS Everywhere
+- Change privacy settings
+
+### lm_sensors
+
+See the [lm-sensors repository](https://github.com/lm-sensors/lm-sensors).
+
 ```bash
 sudo sensors-detect
 ```
 
-### Set Number of Old Kernels to Keep
-Change `installonly_limit=n` in `/etc/dnf/dnf.conf` to keep `n` old kernels.
+### Number of Old Kernels to Keep
 
-### Set the background for SDDM
-Add the following to `/usr/share/sddm/themes/03-sway-fedora/theme.conf`.
-```
+Set `installonly_limit=n` in `/etc/dnf/dnf.conf` to keep `n` old kernels.
+
+### SDDM Background
+
+Add the following to `/usr/share/sddm/themes/03-sway-fedora/theme.conf`:
+
+```ini
 [General]
 background=/usr/share/backgrounds/background.png
 ```
 
-### Additional Manual Configuration
+### OpenSnitch
+
+See the [OpenSnitch repository](https://github.com/evilsocket/opensnitch).
+
+## Manual Configuration
+
 - Cron jobs
 - VPN
 - NextCloud
 - Syncthing
 
-## Framework Laptop 13 AMD WiFi Fixes
-See [here](https://wiki.archlinux.org/title/Network_configuration/Wireless#mt7921) and [here](https://community.frame.work/t/responded-poor-wi-fi-performance-with-amd-rz616/42901/20).
+### Fingerprint Login
 
-### WiFi Backend
-Add the following to `/etc/NetworkManager/conf.d/wifi_backend.conf`
+```bash
+sudo authselect enable-feature with-fingerprint
+sudo authselect apply-changes
 ```
+
+### FFMPEG
+
+```bash
+sudo dnf swap ffmpeg-free ffmpeg --allowerasing
+```
+
+## Framework Laptop 13 (AMD) Fixes
+
+### WiFi
+
+See the [Arch Wiki on the mt7921 driver](https://wiki.archlinux.org/title/Network_configuration/Wireless#mt7921) and this [Framework community thread](https://community.frame.work/t/responded-poor-wi-fi-performance-with-amd-rz616/42901/20).
+
+#### WiFi Backend
+
+Add the following to `/etc/NetworkManager/conf.d/wifi_backend.conf`:
+
+```ini
 [device]
 wifi.backend=iwd
 ```
 
-# WiFi Power Saving
-Add the following to `/etc/modprobe.d/mt7921e.conf`
-```
+#### WiFi Power Saving
+
+Add the following to `/etc/modprobe.d/mt7921e.conf`:
+
+```bash
 options mt7921e disable_aspm=1
+```
+
+### Blank Screen on Boot (SDDM)
+
+```bash
+sudo grubby --update-kernel=ALL --remove-args="rhgb"
+```
+
+### Screen Flickering
+
+```bash
+sudo grubby --update-kernel=ALL --args="amdgpu.dcdebugmask=0x10"
+sudo grubby --update-kernel=ALL --args="amdgpu.sg_display=0"
+sudo grubby --update-kernel=ALL --args="amdgpu.abmlevel=0"
+```
+
+To also disable Panel Replay (PR), use `0x410` instead:
+
+```bash
+sudo grubby --update-kernel=ALL --args="amdgpu.dcdebugmask=0x410"
+sudo grubby --update-kernel=ALL --args="amdgpu.sg_display=0"
+sudo grubby --update-kernel=ALL --args="amdgpu.abmlevel=0"
+```
+
+## Disable
+
+### PPD
+
+```bash
+sudo systemctl enable --now power-profiles-daemon
+powerprofilesctl set power-saver
 ```
