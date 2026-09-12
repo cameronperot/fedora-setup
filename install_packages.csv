@@ -16,6 +16,8 @@ chromium
 clang-devel
 compat-lua-devel
 curl
+duf
+dust
 dvipng
 evince
 exfatprogs
@@ -37,6 +39,7 @@ gcc-c++
 geeqie
 gimp
 git
+git-delta
 gnome-clocks
 gnome-keyring
 gnome-keyring-pam
@@ -48,9 +51,11 @@ gvfs-mtp
 hdf5-devel
 hstr
 htop
+hyperfine
 iftop
 iotop
 jpegoptim
+jq
 kanshi
 kernel-devel
 kitty
@@ -127,6 +132,7 @@ wl-clipboard
 xdg-desktop-portal
 xdg-desktop-portal-wlr
 xfce-polkit
+yq
 yt-dlp
 zoxide
 zsh
