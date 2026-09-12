@@ -64,6 +64,16 @@ background=/usr/share/backgrounds/background.png
 
 See the [OpenSnitch repository](https://github.com/evilsocket/opensnitch).
 
+### Snapper
+
+```bash
+# Triggers hourly snapshots (governed by TIMELINE_CREATE="yes")
+sudo systemctl enable --now snapper-timeline.timer
+
+# Triggers scheduled cleanup/pruning (governed by TIMELINE_CLEANUP, NUMBER_CLEANUP, etc.)
+sudo systemctl enable --now snapper-cleanup.timer
+```
+
 ## Manual Configuration
 
 - Cron jobs
